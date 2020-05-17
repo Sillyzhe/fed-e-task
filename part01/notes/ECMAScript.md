@@ -25,5 +25,12 @@
 - startsWith()
 - endsWith()
 
-###
+### Reflect 统一的对象操作API——是一个静态类
+
+Reflect内部封装了一系列对对象的底层操作
+
+Reflect成员方法就是Proxy处理对象的默认实现
+
+### Promise 解决了传统异步函数回调函数嵌套过深的问题
+
 # And more...

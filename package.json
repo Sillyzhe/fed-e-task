@@ -1,0 +1,24 @@
+{
+  "name": "fed-e-task",
+  "version": "1.0.0",
+  "description": "此处回答简答题的内容。每一题为一个三级标题，可以后面跟上题目，也可以不跟，下面为格式示例：",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sillyzhe/fed-e-task.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sillyzhe/fed-e-task/issues"
+  },
+  "homepage": "https://github.com/Sillyzhe/fed-e-task#readme",
+  "devDependencies": {
+    "html-webpack-plugin": "^4.3.0",
+    "webpack": "^4.43.0",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
