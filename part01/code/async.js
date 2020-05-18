@@ -48,11 +48,9 @@
 
 
 function ajax(url) {
-    console.log(url)
     return new Promise((resolve, reject) => {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url)
-        console.log(xhr)
         xhr.responseType = 'json'
         xhr.onload = function () {
             if (this.status === 200) {
