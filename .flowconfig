@@ -1,0 +1,14 @@
+[ignore]
+.*/node_modules/.*
+
+[include]
+./part01/code/
+./src/
+
+[libs]
+
+[lints]
+
+[options]
+
+[strict]
