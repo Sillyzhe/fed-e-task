@@ -125,3 +125,9 @@ TypeScript是JavaScript的一个超集,实现面向对象编程的方式使用Ja
 - 没有JavaScript灵活
 - 小项目迁移成本高
 - 引入新的概念，需要学习、理解接口（interface）、类（class）、枚举（enums）、泛型（<T>）等概念
+
+
+
+## 项目文件说明
+- code 练习代码
+- notes 笔记
