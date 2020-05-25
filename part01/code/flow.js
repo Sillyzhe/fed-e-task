@@ -120,3 +120,5 @@ function passAny(value: any) {
 
   value * value
 }
+
+

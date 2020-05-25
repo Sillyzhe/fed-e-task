@@ -182,8 +182,8 @@ const _ = require('lodash')
 // 记忆函数
 
 function getArea(r) {
-    console.log(r)
-    return Math.PI * r * r
+  console.log(r)
+  return Math.PI * r * r
 }
 
 // let getAreaWithMemory = _.memoize(getArea)
@@ -194,16 +194,126 @@ function getArea(r) {
 
 // 模拟memozi方法的实现
 
-function memoize(f) {
-    let cache = {}
-    return function () {
-        let key = JSON.stringify(arguments)
-        cache[key] = cache[key] || f.apply(f, arguments)
-        return cache[key]
-    }
-}
+// function memoize(f) {
+//     let cache = {}
+//     return function () {
+//         let key = JSON.stringify(arguments)
+//         cache[key] = cache[key] || f.apply(f, arguments)
+//         return cache[key]
+//     }
+// }
 
-let getAreaWithMemory = memoize(getArea)
-getAreaWithMemory(4)
-getAreaWithMemory(4)
-getAreaWithMemory(5)
+// let getAreaWithMemory = memoize(getArea)
+// getAreaWithMemory(4)
+// getAreaWithMemory(4)
+// getAreaWithMemory(5)
+
+
+// 柯力化
+
+// let checkAge = min => (age => age >= min)
+
+// let checkAge18=checkAge(18)
+// let checkAge20=checkAge(20)
+
+// console.log(checkAge18(12))
+// console.log(checkAge20(20))
+
+// lodash中的柯力化函数 _.curry()
+
+// function getSum(a, b, c) {
+//   return a + b + c
+// }
+
+// const curried=curry(getSum)
+
+// console.log(curried(1,2)(3))
+// console.log(curried(1)(2,3))
+
+// 柯力化案例
+
+// ''.match(/s+/g)
+// ''.match(/d+/g)
+
+
+
+// const match = _.curry(function match(reg, str) {
+//   return str.match(reg)
+// })
+
+// const haveSpace = match(/\s+/g)
+// const haveNumber = match(/\d+/g)
+// console.log(haveSpace('hello world'))
+// console.log(haveNumber('1b2c'))
+
+// const filter = _.curry(function (func, arr) {
+//   return arr.filter(func)
+// })
+
+// console.log(filter(haveSpace,['join hello','join','hello world']))
+
+// const findSpace=filter(haveSpace)
+
+// console.log(findSpace(['join hello','join','hello world']))
+
+
+// lodash curry 实现原理
+
+// function curry(func) {
+//   return function curriedFn(...args) {
+//     // 判断实参和形参的格式
+//     if (args.length < func.length) {
+//       return function () {
+//         return curriedFn(...args.concat(Array.from(arguments)))
+//       }
+//     }
+//     return func(...args)
+//   }
+// }
+
+
+// 函数组合
+
+// function compose(f, g) {
+//   return function (value) {
+//     return f(g(value))
+//   }
+// }
+
+// function reverse(arr) {
+//   return arr.reverse()
+// }
+
+// function first(arr) {
+//   return arr[0]
+// }
+
+// const last = compose(first, reverse);
+// console.log(last([1,2,3,4,5]))
+
+
+// lodash 中的函数组合的方法 _.flowRight()
+
+
+// const reverse = arr => arr.reverse()
+
+// const first = arr => arr[0]
+
+// const toUpper = s => s.toUpperCase()
+
+// const compose = (...args) => value => args.reverse().reduce((acc, fn) => fn(acc), value)
+// const f = compose(toUpper, first, reverse)
+// const f = _.flowRight(toUpper, first, reverse)
+
+// const f = _.flowRight(_.toUpper, _.first, _.reverse)
+const f = _.flowRight(_.toUpper, _.first, _.reverse)
+
+console.log(f(['one', 'two', 'three', 'four']))
+
+// function compose(...args) {
+//   return function (value) {
+//     return args.reverse().reduce(function (acc, fn) {
+//       return fn(acc)
+//     }, value)
+//   }
+// }
