@@ -27,6 +27,7 @@
     "@babel/preset-flow": "^7.9.0",
     "flow-bin": "^0.125.1",
     "flow-remove-types": "^2.125.1",
+    "folktale": "^2.3.2",
     "html-webpack-plugin": "^4.3.0",
     "lodash": "^4.17.15",
     "webpack": "^4.43.0",

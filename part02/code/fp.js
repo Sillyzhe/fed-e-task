@@ -306,9 +306,9 @@ function getArea(r) {
 // const f = _.flowRight(toUpper, first, reverse)
 
 // const f = _.flowRight(_.toUpper, _.first, _.reverse)
-const f = _.flowRight(_.toUpper, _.first, _.reverse)
+// const f = _.flowRight(_.toUpper, _.first, _.reverse)
 
-console.log(f(['one', 'two', 'three', 'four']))
+// console.log(f(['one', 'two', 'three', 'four']))
 
 // function compose(...args) {
 //   return function (value) {
@@ -317,3 +317,61 @@ console.log(f(['one', 'two', 'three', 'four']))
 //     }, value)
 //   }
 // }
+
+// 函数组合 调试
+// NEVER SAY DIE -->never-say-die
+
+// _.split()
+// const split = _.curry((sep, str) => _.split(str, sep))
+
+// const join = _.curry((sep, array) => _.join(array, sep));
+// const log = v => {
+//   console.log(v)
+//   return v
+// }
+// const trace=_.curry((tag,v)=>{
+//   console.log(tag,v)
+//   return v
+// })
+// const map = _.curry((fn, arr) => _.map(arr, fn))
+// const f = _.flowRight(join('-'), trace('map 之后'), map(_.toLower), split(' '))
+
+// console.log(f('NEVER SAY DIE'))
+
+
+
+// lodash fp
+
+const fp = require('lodash/fp')
+
+// const f=fp.flowRight(fp.join('-'),fp.map(fp.toLower),fp.split(' '))
+// console.log(f('NEVER SAY DIE'))
+
+// lodash 和 lodash/fp 模块中 map 方法的区别
+
+
+// console.log(_.map(['23', '8', '10'], parseInt))
+// parseInt('23',0,array)
+// parseInt('8',1,array)
+// parseInt('10',2,array)
+
+// console.log(fp.map(parseInt, ['23', '8', '10']))
+
+// 非Point Free模式
+
+// function f(word){
+//   return word.toLowerCase().replace(/\s+/g,'_')
+// }
+// Point Free 模式
+
+// const fn=fp.flowRight(fp.replace(/\s+/g,'_'),fp.toLower)
+
+// console.log(f('Hello   World'))
+// console.log(fn('Hello   World'))
+
+// 把一个字符串中的首字母提取并转换成大写，使用.作为分隔符
+// world wild web==>W.W.W
+
+// const firstLetterToUpper = fp.flowRight(fp.join('.'), fp.map(fp.first), fp.map(fp.toUpper), fp.split(' '))
+const firstLetterToUpper = fp.flowRight(fp.join('.'), fp.map(fp.flowRight(fp.first, fp.toUpper)), fp.split(' '))
+console.log(firstLetterToUpper('world wild web'))
