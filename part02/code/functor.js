@@ -144,30 +144,84 @@ const fp = require('lodash/fp')
 
 // foktale Task 处理异步任务
 const fs = require('fs')
-const {
-    task
-} = require('folktale/concurrency/task')
-const {
-    split,
-    find
-} = require('lodash/fp')
+// const {
+//     task
+// } = require('folktale/concurrency/task')
+// const {
+//     split,
+//     find
+// } = require('lodash/fp')
 
-function readFile(filename) {
-    return task(resolver => {
-        fs.readFile(filename, 'utf-8', (err, data) => {
-            if (err) resolver.reject(err)
-            resolver.resolve(data)
+// function readFile(filename) {
+//     return task(resolver => {
+//         fs.readFile(filename, 'utf-8', (err, data) => {
+//             if (err) resolver.reject(err)
+//             resolver.resolve(data)
+//         })
+//     })
+// }
+
+// readFile('../../package.json')
+//     .map(split('\n'))
+//     .map(find(x => x.includes('version'))).run().listen({
+//     onRejected: err => {
+//         console.log(err)
+//     },
+//     onResolved: value => {
+//         console.log(value)
+//     }
+// })
+
+
+// Poionted函子
+
+// class Container {
+//     static of (value) {
+//         return new Container(value)
+//     }
+// }
+
+
+// IO函子的问题
+class IO {
+    static of (value) {
+        return new IO(function () {
+            return value
         })
+    }
+    constructor(fn) {
+        this._value = fn
+    }
+    map(fn) {
+        return new IO(fp.flowRight(fn, this._value))
+    }
+    join(){
+        return this._value()
+    }
+    flatMap(fn){
+        return this.map(fn).join()
+    }
+}
+
+let readFile = function (filename) {
+    return new IO(function () {
+        return fs.readFileSync(filename, 'utf-8')
     })
 }
 
-readFile('../../package.json')
-    .map(split('\n'))
-    .map(find(x => x.includes('version'))).run().listen({
-    onRejected: err => {
-        console.log(err)
-    },
-    onResolved: value => {
-        console.log(value)
-    }
-})
+let print = function (x) {
+    return new IO(function () {
+        console.log(x)
+        return x
+    })
+}
+
+// let cat=fp.flowRight(print,readFile)
+
+// let r=cat('../../package.json')._value()._value()
+// console.log(r)
+let r=readFile('../../package.json')
+// .map(x=>x.toUpperCase())
+.map(fp.toUpper)
+.flatMap(print).join()
+console.log(r)

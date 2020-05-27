@@ -37,3 +37,10 @@ Task异步执行
   - 和lodash、ramda不同的是，他没有提供很多功能函数
   - 只提供了一些函数式处理的操作，例如：compose、curry等，一些函子Task、Either、MayBe等
 
+### Pointed函子
+- Pointed函子是实现了of静态方法的函子
+- of方法是为了避免使用new来创建对象，更深层的含义是of方法用来把值放到上下文Context（把值放到容器中，使用map来处理值）
+
+### Monad（单子）
+- Monad函子是可以变扁的Pointed函子，IO(IO(x))
+- 一个函子如果具有join和of两个方法并遵守一些定律就是一个Monad
