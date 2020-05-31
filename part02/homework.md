@@ -31,3 +31,8 @@
 - 在老生代对象回收时使用，程序执行跟垃圾回收不能同时进行，时间消耗更合理
 - 将一整段垃圾回收拆成多个小步骤，程序执行和标记交替完成
 
+
+## 代码题
+
+
+[代码题](https://github.com/Sillyzhe/fed-e-task/blob/master/part02/homework.js)

@@ -40,12 +40,14 @@ const cars = [{
 // 练习1
 
 const isLastInStock = fp.flowRight(fp.prop('in_stock'), fp.last)
-console.log(isLastInStock(cars))
+console.log(isLastInStock(cars)) 
+//flase
 
 // 练习2
 
 const isFirstName = fp.flowRight(fp.prop('name'), fp.first)
-console.log(isFirstName(cars))
+console.log(isFirstName(cars))  
+//Ferrari FF
 
 // 练习3
 
@@ -55,6 +57,7 @@ let _average = function (xs) {
 
 const averageDollarValue = fp.flowRight(_average, fp.map(item => item.dollar_value))
 console.log(averageDollarValue(cars))
+//790700
 
 // 练习4
 
@@ -62,7 +65,12 @@ let _underscore = fp.replace(/\W+/g, '_')
 
 const sanitizeNames = fp.flowRight(fp.toLower, _underscore)
 cars.forEach(car => console.log(sanitizeNames(car.name)))
-
+// ferrari_ff
+// spyker_c12_zagato
+// jaguar_xkr_s
+// audi_r8
+// astor_martin_one_77
+// pagani_huayra
 
 // ------------------------------------------------------------
 // 代码题2
@@ -81,12 +89,15 @@ let ex1 = function (num) {
     }, i))
 }
 console.log(ex1(2)._value)
+// [ 7, 8, 3 ]
+
 
 // 练习2
 
 let xs = Container.of(['do', 'ray', 'me', 'fa', 'so', 'la', 'ti', 'do'])
 let ex2 = xs.map(x => fp.first(x))
 console.log(ex2._value)
+// do
 
 // 练习3
 
@@ -99,7 +110,9 @@ let user = {
 }
 let ex3 = safeProp('name', user).map(x => fp.first(x))
 console.log(ex3._value)
+// A
 
 // 练习4
 let ex4 = Maybe.of(3.2).map(x => parseInt(x))
 console.log(ex4._value)
+// 3
