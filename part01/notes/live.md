@@ -11,6 +11,45 @@
   - 对数组中的每一个promise都去处理一下catch，确保不会出现异常
   - 也可以使用Promise.allSettled()实现——ES2020
 
+npx——当前可执行程序
+ 
 ## 关于this
 
-- this 指向什么取决
+- this 的指向，取决于调用。沿着作用域向上找最近的一个function，看这个function最终是怎样执行的。
+
+
+```
+function foo(){
+  console.log(this)
+}
+```
+```
+1. 普通调用
+   foo() 全局对象，严格模式undefined
+2. new调用
+  new foo() 空对象 foo{}
+
+3. call/apply/bind
+foo.call('123) 自己指定 123
+```
+## ES2018+
+
+- ES2018
+  - 展开和剩余在对象上的应用
+  - 正则表达式的增强
+  - Promise.prototype.finally()
+- ES2019
+  - 数组稳定排序
+  - try...catch参数可以省略
+- ES2020
+  - 控制合并运算符
+  - 可选链运算符
+  - Promise.allSettled()
+  - BigInt
+  - 动态导入
+  
+  关于应用
+
+  TypeScript
+
+  现阶段的目标是掌握语法层面和运行层面的特性，应用落地
