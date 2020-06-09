@@ -13,9 +13,11 @@
   "license": "MIT",
   "author": "吴利哲 <2593008451@qq.com>",
   "files": [
-    "lib"
+    "lib",
+    "bin"
   ],
   "main": "lib/index.js",
+  "bin": "bin/gulp-flow.js",
   "directories": {
     "lib": "lib",
     "test": "test"
