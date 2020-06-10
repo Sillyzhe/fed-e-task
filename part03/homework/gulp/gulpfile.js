@@ -206,7 +206,6 @@ const serve = () => {
 
 // gulp-useref gulp-if gulp-uglify gulp-clean-css gulp-htmlmin
 const useref = () => {
-    console.log('11111111111')
   return src(config.build.paths.pages, {
       base: config.build.temp,
       cwd: config.build.src
