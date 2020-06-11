@@ -1,4 +1,3 @@
-// 实现这个项目的构建任务
 const {
   src,
   dest,
@@ -8,7 +7,6 @@ const {
 } = require('gulp')
 
 const del = require('del')
-
 const browserSync = require('browser-sync')
 
 // cwd返回当前命令行的工作目录
@@ -23,49 +21,49 @@ let config = {
     paths: {
       styles: 'assets/styles/*.scss',
       scripts: 'assets/scripts/*.js',
-      pages: ['*.html', 'layouts/*.html', 'partials/*.html'],
+      pages: '*.html',
       images: 'assets/images/**',
       fonts: 'assets/fonts/**'
     }
   },
   data: {
     menus: [{
-        name: 'Home',
-        icon: 'aperture',
-        link: 'index.html'
-      },
-      {
-        name: 'Features',
-        link: 'features.html'
-      },
-      {
-        name: 'About',
-        link: 'about.html'
-      },
-      {
-        name: 'Contact',
-        link: '#',
-        children: [{
-            name: 'Twitter',
-            link: 'https://twitter.com/w_zce'
-          },
-          {
+            name: 'Home',
+            icon: 'aperture',
+            link: 'index.html'
+        },
+        {
+            name: 'Features',
+            link: 'features.html'
+        },
+        {
             name: 'About',
-            link: 'https://weibo.com/zceme'
-          },
-          {
-            name: 'divider'
-          },
-          {
-            name: 'About',
-            link: 'https://github.com/zce'
-          }
-        ]
-      }
+            link: 'about.html'
+        },
+        {
+            name: 'Contact',
+            link: '#',
+            children: [{
+                    name: 'Twitter',
+                    link: 'https://twitter.com/w_zce'
+                },
+                {
+                    name: 'About',
+                    link: 'https://weibo.com/zceme'
+                },
+                {
+                    name: 'divider'
+                },
+                {
+                    name: 'About',
+                    link: 'https://github.com/zce'
+                }
+            ]
+        }
     ],
     pkg: require('./package.json'),
     date: new Date()
-  }
+}
 }
 
 try {
@@ -73,27 +71,23 @@ try {
   config = Object.assign({}, assign, loadConfig)
 } catch (e) {}
 
-const loadPlugin = require('gulp-load-plugins')
-
-const plugins = loadPlugin()
-
+const loadPlugins = require('gulp-load-plugins');
+const plugins = loadPlugins()
 
 const bs = browserSync.create()
 
 
-// 删除编译文件 del
 const clean = () => {
   return del([config.build.dist, config.build.temp])
 }
 
-// gulp-sass
 const style = () => {
   return src(config.build.paths.styles, {
       base: config.build.src,
       cwd: config.build.src
     })
     .pipe(plugins.sass({
-      outputStyle: "expanded"
+      outputStyle: 'expanded'
     }))
     .pipe(dest(config.build.temp))
     .pipe(bs.reload({
@@ -101,7 +95,6 @@ const style = () => {
     }))
 }
 
-//  @babel/core @babel/preset-env gulp-babel
 const script = () => {
   return src(config.build.paths.scripts, {
       base: config.build.src,
@@ -115,8 +108,6 @@ const script = () => {
       stream: true
     }))
 }
-
-// gulp-swig
 
 const page = () => {
   return src(config.build.paths.pages, {
@@ -132,8 +123,6 @@ const page = () => {
     }))
 }
 
-
-// gulp-imagemin
 const image = () => {
   return src(config.build.paths.images, {
       base: config.build.src,
@@ -154,13 +143,13 @@ const font = () => {
 
 const extra = () => {
   return src('**', {
-    base: config.build.public,
-    cwd: config.build.public
-  }).pipe(dest(config.build.dist))
+      base: config.build.public,
+      cwd: config.build.public
+    })
+    .pipe(dest(config.build.dist))
 }
 
 const serve = () => {
-
   watch(config.build.paths.styles, {
     cwd: config.build.src
   }, style)
@@ -170,20 +159,19 @@ const serve = () => {
   watch(config.build.paths.pages, {
     cwd: config.build.src
   }, page)
-
-  // TODO:bug 
-
-  //   watch([config.build.paths.images, {
-  //     cwd: config.build.src
-  //   },
-  //   config.build.paths.fonts, {
-  //     cwd: config.build.src
-  //   }
-  // ], {
-  //   cwd: config.build.src
-  // }, bs
-  // .reload)
-
+  // watch('src/assets/images/**', image)
+  // watch('src/assets/fonts/**', font)
+  // watch('public/**', extra)
+  watch([config.build.paths.images, {
+        cwd: config.build.src
+      },
+      config.build.paths.scripts, {
+        cwd: config.build.src
+      },
+    ], {
+      cwd: config.build.src
+    }, bs
+    .reload)
 
   watch('**', {
     cwd: config.build.public
@@ -203,8 +191,6 @@ const serve = () => {
   })
 }
 
-
-// gulp-useref gulp-if gulp-uglify gulp-clean-css gulp-htmlmin
 const useref = () => {
   return src(config.build.paths.pages, {
       base: config.build.temp,
@@ -224,18 +210,17 @@ const useref = () => {
     .pipe(dest(config.build.dist))
 }
 
-
 const compile = parallel(style, script, page)
 
-const build = series(clean, parallel(series(compile,useref), image, font,
+// 上线前执行的任务
+const build = series(clean, parallel(series(compile, useref), image, font,
   extra))
-// const build = series(clean, parallel(series(compile, useref), font, image, extra))
 
+// 开发时执行的任务
 const develop = series(compile, serve)
 
 module.exports = {
-  compile,
   clean,
-  develop,
-  build
+  build,
+  develop
 }
