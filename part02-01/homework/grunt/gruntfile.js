@@ -1,13 +1,18 @@
 // sass 
 
+
 module.exports = grunt => {
   const sass = require('sass')
   const loadGruntTasks = require('load-grunt-tasks')
   grunt.initConfig({
+    meta: {
+      srcPath: 'src'
+    },
     sass: {
       options: {
         sourceMap: false,
-        implementation: sass
+        implementation: sass,
+        style: 'compressed'
       },
       main: {
         files: {
@@ -39,5 +44,5 @@ module.exports = grunt => {
   })
   loadGruntTasks(grunt)
 
-  grunt.registerTask('default', ['sass', 'babel', 'watch'])
+  grunt.registerTask('default', ['sass', 'babel'])
 }
