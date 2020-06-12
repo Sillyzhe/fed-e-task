@@ -47,9 +47,16 @@
   "devDependencies": {
     "@babel/preset-env": "^7.10.2",
     "grunt-babel": "^8.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-htmlmin": "^3.1.0",
+    "grunt-contrib-imagemin": "^4.0.0",
+    "grunt-contrib-uglify": "^4.0.1",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-sass": "^3.1.0",
     "grunt-swig-precompile": "^0.2.2",
+    "grunt-swigtemplates": "^0.1.2",
+    "grunt-useref": "^0.0.16",
     "load-grunt-tasks": "^5.1.0",
     "sass": "^1.26.7"
   },
