@@ -23,7 +23,7 @@
   "author": "吴",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "core-js": "^3.4.4",
     "ejs-lint": "~1.0.1",
     "vue": "^2.6.10",
